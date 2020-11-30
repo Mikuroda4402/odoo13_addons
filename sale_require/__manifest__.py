@@ -14,6 +14,6 @@
     'data': [
         'views/sale_require_view.xml',
         'views/require_category.xml',
-        'views/res_partner.xml',
+        # 'views/res_partner.xml',
     ],
 }

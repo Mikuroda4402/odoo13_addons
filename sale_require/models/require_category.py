@@ -39,13 +39,13 @@ class SalePartnerSource(models.Model):
     name = fields.Char('等級')
 
 
-class PartnerNumber(models.Model):
-    _name = 'partner.number'
-
-    categ_code = fields.Char(u"客戶編碼", required=True)
-
-
-variants_length = fields.Integer(u"流水號長度", default=3, required=True)
+# class PartnerNumber(models.Model):
+#     _name = 'partner.number'
+#
+#     categ_code = fields.Char(u"客戶編碼", required=True)
+#
+#
+# variants_length = fields.Integer(u"流水號長度", default=3, required=True)
 
 # @api.model
 # def get_serial_number(self, categ_code, length):
