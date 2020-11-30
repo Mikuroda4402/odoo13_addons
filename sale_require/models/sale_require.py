@@ -23,9 +23,12 @@ class SaleRequire(models.Model):
     create_date = fields.Datetime(string='Creation Date', readonly=True, index=True,
                                   help="Date on which sales order is created.")
     publish_user_id = fields.Many2one('res.users', string='發文者')
+    # create_user_id = fields.Many2one(
+    #     'res.users', string='建立者', index=True, tracking=2, default=lambda self: self.env.user,
+    #     domain=lambda self: [('groups_id', 'in', self.env.ref('sales_team.group_sale_salesman').id)])
     create_user_id = fields.Many2one(
         'res.users', string='建立者', index=True, tracking=2, default=lambda self: self.env.user,
-        domain=lambda self: [('groups_id', 'in', self.env.ref('sales_team.group_sale_salesman').id)])
+        domain=lambda self: [('groups_id', 'in', self.env.ref('sale_require.sale_require_group_user').id)])
     share_n = fields.Boolean('不分享')
     share_y = fields.Many2many('res.users', string='分享給指定人員')
     addressee_user_id = fields.Many2one('res.users', string='受文者')
