@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="seq_partner_customer_number" model="ir.sequence">
+            <field name="name">Customer number</field>
+            <field name="code">partner.customer.number</field>
+            <field name="prefix">C</field>
+            <field name="padding">6</field>
+        </record>
+
+        <record id="seq_partner_supplier_number" model="ir.sequence">
+            <field name="name">Supplier number</field>
+            <field name="code">partner.supplier.number</field>
+            <field name="prefix">S</field>
+            <field name="padding">6</field>
+        </record>
+
+
+        <record id="seq_partner_both_number" model="ir.sequence">
+            <field name="name">Both number</field>
+            <field name="code">partner.both.number</field>
+            <field name="prefix">CS</field>
+            <field name="padding">5</field>
+        </record>
+
+        <record id="seq_partner_default_number" model="ir.sequence">
+            <field name="name">Default number</field>
+            <field name="code">partner.default.number</field>
+            <field name="prefix">E</field>
+            <field name="padding">6</field>
+        </record>
+    </data>
+</odoo>
