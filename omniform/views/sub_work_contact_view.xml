@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="sub_work_contact_tree">
+            <field name="name">工作聯繫單列表</field>
+            <field name="model">work.contact</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="create_date" string="發文日期"/>
+                    <field name="subject"/>
+                    <field name="employee_id" string="發文者"/>
+                    <field name="recipient_ids" widget="many2many_tags" invisible="1"/>
+                    <field name="priority"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="sub_work_contact_form">
+            <field name="name">工作聯繫單</field>
+            <field name="model">work.contact</field>
+            <field name="arch" type="xml">
+                <form class="o_sale_order">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="1,2,3"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="sub_work_contact" string="回復訊息"
+                                    type="object" class="oe_stat_button" icon="fa-mail-reply"
+                                    attrs="{'invisible': [('name', '=', False)]}">
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group col="4">
+                            <field name="employee_id"
+                                   options="{'no_create': True, 'no_create_edit':True, 'no_open':True}"/>
+                            <field name="create_date" string="發文日期"/>
+                            <field name="attachment_ids" widget="many2many_binary" class="oe_inline"/>
+                            <field name="recipient_ids" widget="many2many_tags" invisible="1"
+                                   options="{'no_create': True, 'no_create_edit':True, 'no_open':True}"/>
+                            <field name="priority" widget='radio' options="{'horizontal': true}" invisible="1"/>
+                            <field name="est_cmplt_date" attrs="{'required': [('work_contact_id','=', False)]}" invisible="1"/>
+                            <field name="work_contact_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="subject" attrs="{'required': [('work_contact_id','=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name="content"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="sub_work_contact_search" model="ir.ui.view">
+            <field name="name">work contact search</field>
+            <field name="model">work.contact</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="subject"/>
+                    <field name="employee_id" string="發文者"/>
+
+                    <field name="recipient_ids" string="收文者" filter_domain="[('recipient_ids.name', 'ilike', self)]"/>
+
+                    <group expand="0" string="Group By...">
+                        <filter string="優先順序" name="priority" domain="[]" context="{'group_by': 'priority'}"/>
+                        <filter string="狀態" name="state" domain="[]" context="{'group_by': 'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.actions.act_window" id="work_contact_act">
+            <field name="name">關於我的聯繫單</field>
+            <field name="res_model">work.contact</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('work_contact_id', '=', False),
+                '|', '|', ('employee_id.user_id.id', '=', uid), '&amp;', ('manager_id', '=', uid), ('state', '=', '3'),
+                '&amp;', ('recipient_ids.user_id.id', '=', uid), ('state', '=', '3')]</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="sub_work_contact_act">
+            <field name="name">回覆聯繫單</field>
+            <field name="res_model">work.contact</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="pending_approval_contact_act">
+            <field name="name">待批准聯繫單</field>
+            <field name="res_model">work.contact</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_state':1}</field>
+            <field name="domain">[('work_contact_id', '=', False), ('state', '=', ['2', '3', '4']),
+                '|', ('employee_id.parent_id.user_id.id', '=', uid), ('employee_id.user_id.id', '=', uid)]</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="inquire_contact_act">
+            <field name="name">查詢回覆訊息</field>
+            <field name="res_model">work.contact</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_group_state':1}</field>
+            <field name="domain">[('state', '=', ['3', '4']),
+                '|', '|', ('employee_id.parent_id.user_id.id', '=', uid), ('employee_id.user_id.id', '=', uid), ('recipient_ids.user_id.id', '=', uid)]</field>
+        </record>
+    </data>
+</odoo>

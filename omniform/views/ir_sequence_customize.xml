@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="seq_work_contact" model="ir.sequence">
+            <field name="name">工作聯繫單序號</field>
+            <field name="code">work.contact</field>
+            <field name="padding">5</field>
+            <field name="reset_setting">month</field>
+        </record>
+    </data>
+</odoo>
