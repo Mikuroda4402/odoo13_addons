@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.module.category" id="sale_require_module_management">
+            <field name="name">業務需求聯絡單</field>
+            <field name="description">業務需求聯絡單的提供設定權限階層</field>
+            <field name="sequence">2</field>
+        </record>
+
+        <record id="sale_require_group_user" model="res.groups">
+            <field name="name">業務需求聯絡單使用者</field>
+            <field name="category_id" ref="sale_require.sale_require_module_management"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="sale_require_group_manager" model="res.groups">
+            <field name="name">業務需求聯絡單管理員</field>
+            <field name="category_id" ref="sale_require.sale_require_module_management"/>
+            <field name="implied_ids" eval="[(4, ref('sale_require_group_user'))]"/>
+        </record>
+    </data>
+</odoo>

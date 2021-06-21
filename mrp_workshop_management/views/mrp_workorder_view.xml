@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="mrp_workorder_fw_inherit_form_view" model="ir.ui.view">
+            <field name="name">mrp.workorder.fw.inherit.form</field>
+            <field name="model">mrp.workorder</field>
+            <field name="inherit_id" ref="mrp.mrp_production_workorder_form_view_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='button_start'][1]" position="replace">
+                    <button name='button_confirm' string='確認生產'
+                            attrs="{'invisible': [('state', '!=', 'pending')]}"
+                            type="object" class="oe_highlight"/>
+                </xpath>
+                <xpath expr="//button[@name='button_scrap']" position="before">
+                    <button name='button_confirm_qty' string='確認報工數量'
+                            attrs="{'invisible': [('state', '!=', 'progress')]}"
+                            type="object" class="oe_highlight"/>
+                    <button name='action_cancel' string='取消'
+                            attrs="{'invisible': [('state', 'in', ('done', 'cancel'))]}"
+                            type="object" class="oe_highlight"/>
+                </xpath>
+                <xpath expr="//button[@name='record_production']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', ('state', '!=', 'progress'), ('qty_producing', '=' , 0)]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='time_ids']/tree/field[@name='duration']" position="after">
+                    <field name="work_qty"/>
+                    <field name="unqa_qty"/>
+                    <field name="scrap_qty"/>
+                    <field name="finished_qty"/>
+                    <field name="confirm" readonly="1"/>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[4]/group[1]/group[1]" position="inside">
+                    <field name="next_work_order_id"
+                           domain="['&amp;', ('production_id', '=', production_id), ('state', 'not in', ('done', 'cancel'))]"
+                           attrs="{'readonly': [('state', '!=', 'pending')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='time_ids']/tree" position="attributes">
+                    <attribute name="editable">bottom</attribute>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[4]/group[1]/group[1]/field[@name='workcenter_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('state', 'in', ('done', 'cancel'))]}</attribute>
+                    <attribute name="readonly"/>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[4]/group[1]/group[1]/field[@name='production_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('state', '!=', 'pending')]}</attribute>
+                    <attribute name="readonly"/>
+                </xpath>
+                <xpath expr="//form[1]" position="attributes">
+                    <attribute name="delete">1</attribute>
+                    <attribute name="create">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="mrp_workorder_fw_inherit_tree_view" model="ir.ui.view">
+            <field name="name">mrp.workorder.fw.inherit.tree</field>
+            <field name="model">mrp.workorder</field>
+            <field name="inherit_id" ref="mrp.mrp_production_workorder_tree_view_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree[1]" position="attributes">
+                    <attribute name="delete">1</attribute>
+                    <attribute name="create">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="mrp.mrp_workorder_todo" model="ir.actions.act_window">
+            <field name="name">Work Orders</field>
+            <field name="res_model">mrp.workorder</field>
+            <field name="view_mode">kanban,tree,form,calendar,pivot,graph</field>
+        </record>
+
+    </data>
+</odoo>

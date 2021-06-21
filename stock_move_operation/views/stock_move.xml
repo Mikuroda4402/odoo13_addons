@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+      <record id="view_stock_move_tree_inherit" model="ir.ui.view">
+            <field name="name">Stock.Move.operation.tree</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_picking_tree"/>
+            <field name="arch" type="xml">
+                <field name="state" position="before">
+                    <button name="do_cancel" type="object" class="btn-primary"
+                            attrs="{'invisible': [('state', 'in', ('draft', 'cancel', 'done'))]}" string="刪除"/>
+                    <button name="stock_reserve" type="object" class="btn-primary" attrs="{'invisible': [('state', '!=', 'confirmed')]}" string="預留"/>
+                    <button name="do_un_stock_reserve" type="object" class="btn-primary" attrs="{'invisible': [('state', '!=', 'assigned')]}" string="取消預留"/>
+                </field>
+            </field>
+        </record>
+
+         <record id="view_stock_picking_move_tree_inherit" model="ir.ui.view">
+            <field name="name">Stock.picking.operation.tree</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='move_ids_without_package']//field[@name='product_uom']"  position="after">
+                    <button name="do_cancel" type="object" class="btn-primary"
+                            attrs="{'invisible': [('state', 'in', ('draft', 'cancel', 'done'))]}" string="刪除"/>
+                    <button name="stock_reserve" type="object" class="btn-primary" attrs="{'invisible': [('state', '!=', 'confirmed')]}" string="預留"/>
+                    <button name="do_un_stock_reserve" type="object" class="btn-primary" attrs="{'invisible': [('state', '!=', 'assigned')]}" string="取消預留"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="action_stock_move_reserve" model="ir.actions.server">
+            <field name="name">庫存預留</field>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="model_id" ref="stock.model_stock_move"/>
+            <field name="binding_model_id" ref="stock.model_stock_move"/>
+            <field name="code">records.stock_reserve()</field>
+        </record>
+
+            <record id="action_stock_move_cancel_reserve" model="ir.actions.server">
+            <field name="name">取消預留</field>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="model_id" ref="stock.model_stock_move"/>
+            <field name="binding_model_id" ref="stock.model_stock_move"/>
+            <field name="code">records.do_un_stock_reserve()</field>
+        </record>
+
+        <record id="action_stock_move_cancel" model="ir.actions.server">
+            <field name="name">取消</field>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="model_id" ref="stock.model_stock_move"/>
+            <field name="binding_model_id" ref="stock.model_stock_move"/>
+            <field name="code">records.do_cancel()</field>
+        </record>
+</odoo>

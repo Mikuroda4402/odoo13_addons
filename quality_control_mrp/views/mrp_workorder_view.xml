@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2018 Simone Rubino - Agile Business Group
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="action_qc_inspection_per_workorder" model="ir.actions.act_window">
+        <field name="name">Quality inspections from workorder</field>
+        <field name="res_model">qc.inspection</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('workorder_id', '=', active_id)]</field>
+    </record>
+
+    <record id="action_qc_inspection_per_workorder_done" model="ir.actions.act_window">
+        <field name="name">Quality inspection from workorder done</field>
+        <field name="res_model">qc.inspection</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('workorder_id', '=', active_id), ('state', 'not in', ['draft', 'waiting'])]</field>
+    </record>
+
+    <record id="action_qc_inspection_per_workorder_passed" model="ir.actions.act_window">
+        <field name="name">Quality inspection from workorder passed</field>
+        <field name="res_model">qc.inspection</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('workorder_id', '=', active_id), ('state', '=', 'success')]</field>
+    </record>
+
+    <record id="action_qc_inspection_per_workorder_failed" model="ir.actions.act_window">
+        <field name="name">Quality inspections from workorder failed</field>
+        <field name="res_model">qc.inspection</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('workorder_id', '=', active_id), ('state', '=', 'failed')]</field>
+    </record>
+    
+    <record model="ir.ui.view" id="mrp_workorder_qc_view">
+        <field name="name">mrp.workorder.form.qc</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp.mrp_production_workorder_form_view_inherit"/>
+        <field name="groups_id"
+               eval="[(4, ref('quality_control.group_quality_control_user'))]"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button class="oe_inline oe_stat_button"
+                        type="action"
+                        name="%(action_qc_inspection_per_workorder)d"
+                        icon="fa-list">
+                    <field name="created_inspections"
+                           widget="statinfo"
+                           string="質檢單"/>
+                </button>
+                <button class="oe_inline oe_stat_button"
+                        type="action"
+                        name="%(action_qc_inspection_per_workorder_done)d"
+                        icon="fa-pencil">
+                    <field name="done_inspections" widget="statinfo" />
+                </button>
+                <button class="oe_inline oe_stat_button"
+                        type="action"
+                        name="%(action_qc_inspection_per_workorder_passed)d"
+                        icon="fa-thumbs-o-up">
+                    <field name="passed_inspections" widget="statinfo" />
+                </button>
+                <button class="oe_inline oe_stat_button"
+                        type="action"
+                        name="%(action_qc_inspection_per_workorder_failed)d"
+                        icon="fa-thumbs-o-down">
+                    <field name="failed_inspections" widget="statinfo" />
+                </button>
+            </div>
+            <button name="button_scrap" position="before">
+                <button name="create_qc_order" type="object" string="建立質檢單"
+                        attrs="{'invisible': [('state', 'in', ('pending', 'done', 'cancel', 'ready'))]}"/>
+                <field name="qc_state" invisible="1"/>
+                <field name="is_qc" invisible="1"/>
+            </button>
+            <button name="button_confirm_qty" position="replace">
+                <button name="button_confirm_qty" string="確認報工數量"
+                        invisible="1"/>
+            </button>
+
+            <xpath expr="//field[@name='qty_producing']" position="replace">
+                <field name="qty_producing" attrs="{'readonly': [('is_qc', '=',True)]}"/>
+            </xpath>
+
+            <xpath expr="//field[@name='time_ids']/tree/field[@name='user_id']" position="before">
+                <field name="qc_state"/>
+            </xpath>
+            <xpath expr="//field[@name='work_qty']" position="attributes">
+                <attribute name="attrs">{'readonly': [('qc_state', '!=', 'un_qc')]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='unqa_qty']" position="attributes">
+                <attribute name="attrs">{'readonly': [('qc_state', '!=', 'un_qc')]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='finished_qty']" position="attributes">
+                <attribute name="attrs">{'readonly': [('qc_state', '!=', 'un_qc')]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='scrap_qty']" position="attributes">
+                <attribute name="attrs">{'readonly': [('qc_state', '!=', 'un_qc')]}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+
+
+
+</odoo>

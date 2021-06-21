@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="rp_routing_workcenter_temporary_form_view" model="ir.ui.view">
+            <field name="name">	mrp.routing.workcenter.temporary.form</field>
+            <field name="model">mrp.routing.workcenter</field>
+            <field name="inherit_id" ref="mrp.mrp_routing_workcenter_form_view"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="temporary"/>
+                </field>
+<!--                <field name="time_cycle" position="after">-->
+<!--                    <label for="reversal_time"/>-->
+<!--                    <div>-->
+<!--                        <field name="reversal_time" widget="float_time" class="oe_inline"/> 分钟-->
+<!--                    </div>-->
+<!--                </field>-->
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="mrp_oee_qc_tree_view" model="ir.ui.view">
+            <field name="name">	mrp.workcenter.productivity.qc.tree</field>
+            <field name="model">mrp.workcenter.productivity</field>
+            <field name="inherit_id" ref="mrp.oee_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="before">
+                    <field name="qc_state"/>
+                </field>
+                <xpath expr="//field[@name='work_qty']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('qc_state', '!=', 'un_qc')]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='unqa_qty']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('qc_state', '!=', 'un_qc')]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='finished_qty']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('qc_state', '!=', 'un_qc')]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='scrap_qty']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('qc_state', '!=', 'un_qc')]}</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

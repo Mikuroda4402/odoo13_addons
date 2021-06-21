@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="require_category_view_tree" model="ir.ui.view">
+            <field name="name">需求類別</field>
+            <field name="model">require.category</field>
+            <field name="arch" type="xml">
+                <tree string="" editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="require_category_view_form" model="ir.ui.view">
+            <field name="name">需求類別</field>
+            <field name="model">require.category</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="require_category_view_action" model="ir.actions.act_window">
+            <field name="name">需求類別</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">require.category</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+        <record id="require_category_view_form_action" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="require_category_view_action" />
+            <field name="sequence" eval="20" />
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="require_category_view_form" />
+        </record>
+
+        <record id="require_category_view_tree_action" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="require_category_view_action" />
+            <field name="sequence" eval="10" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="require_category_view_tree" />
+        </record>
+
+        <record id="sale_require_line_category_view_tree" model="ir.ui.view">
+            <field name="name">需求明細類別</field>
+            <field name="model">sale.require.line.category</field>
+            <field name="arch" type="xml">
+                <tree string="" editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sale_require_line_category_view_form" model="ir.ui.view">
+            <field name="name">需求明細類別</field>
+            <field name="model">sale.require.line.category</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <record id="sale_require_line_category_view_action" model="ir.actions.act_window">
+            <field name="name">需求明細類別</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.require.line.category</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+        <record id="sale_require_line_category_view_form_action" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="sale_require_line_category_view_action" />
+            <field name="sequence" eval="20" />
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="sale_require_line_category_view_form" />
+        </record>
+
+        <record id="sale_require_line_category_view_tree_action" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="sale_require_line_category_view_action" />
+            <field name="sequence" eval="10" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="sale_require_line_category_view_tree" />
+        </record>
+
+        <record id="sale_require_spec_view_tree" model="ir.ui.view">
+            <field name="name">需求索取</field>
+            <field name="model">sale.require.spec</field>
+            <field name="arch" type="xml">
+                <tree string="" editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sale_require_spec_view_form" model="ir.ui.view">
+            <field name="name">需求索取</field>
+            <field name="model">sale.require.spec</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="sale_require_spec_view_action" model="ir.actions.act_window">
+            <field name="name">需求索取</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.require.spec</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+        <record id="sale_require_spec_view_form_action" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="sale_require_spec_view_action" />
+            <field name="sequence" eval="20" />
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="sale_require_spec_view_form" />
+        </record>
+
+        <record id="sale_require_spec_view_tree_action" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="sale_require_spec_view_action" />
+            <field name="sequence" eval="10" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="sale_require_spec_view_tree" />
+        </record>
+
+        <record id="sale_partner_class_view_tree" model="ir.ui.view">
+            <field name="name">等級</field>
+            <field name="model">sale.partner.class</field>
+            <field name="arch" type="xml">
+                <tree string="" editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sale_partner_class_view_form" model="ir.ui.view">
+            <field name="name">等級</field>
+            <field name="model">sale.partner.class</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="sale_partner_class_view_action" model="ir.actions.act_window">
+            <field name="name">等級</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.partner.class</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+        <record id="sale_partner_class_view_form_action" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="sale_partner_class_view_action" />
+            <field name="sequence" eval="20" />
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="sale_partner_class_view_form" />
+        </record>
+
+        <record id="sale_partner_class_view_tree_action" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="sale_partner_class_view_action" />
+            <field name="sequence" eval="10" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="sale_partner_class_view_tree" />
+        </record>
+
+        <record id="sale_partner_status_view_tree" model="ir.ui.view">
+            <field name="name">客戶狀態</field>
+            <field name="model">sale.partner.status</field>
+            <field name="arch" type="xml">
+                <tree string="" editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sale_partner_status_view_form" model="ir.ui.view">
+            <field name="name">客戶狀態</field>
+            <field name="model">sale.partner.status</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="sale_partner_status_view_action" model="ir.actions.act_window">
+            <field name="name">客戶狀態</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.partner.status</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+        <record id="sale_partner_status_view_form_action" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="sale_partner_status_view_action" />
+            <field name="sequence" eval="20" />
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="sale_partner_status_view_form" />
+        </record>
+
+        <record id="sale_partner_status_view_tree_action" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="sale_partner_status_view_action" />
+            <field name="sequence" eval="10" />
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="sale_partner_status_view_tree" />
+        </record>
+    </data>
+</odoo>
