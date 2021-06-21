@@ -40,7 +40,7 @@ class SaleRequire(models.Model):
         required=True, change_default=True, index=True, tracking=1,
          )
     #domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]",
-    country_id = fields.Many2one('res.partner', string='國家', readonly=True, related='partner_id.country_id')
+    country_id = fields.Many2one('res.country', string='國家', readonly=True, related='partner_id.country_id')
     category_id = fields.Many2one('require.category', string='分類')
     require_spec = fields.Many2many('sale.require.spec', string='索取')
     other_require = fields.Text('其他')

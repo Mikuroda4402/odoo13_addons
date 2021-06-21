@@ -1,0 +1,203 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* quality_control_stock
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0-20200826\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-11-03 03:30+0000\n"
+"PO-Revision-Date: 2020-11-03 11:33+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: zh_TW\n"
+"X-Generator: Poedit 2.3\n"
+
+#. module: quality_control_stock
+#: model:ir.model.fields,field_description:quality_control_stock.field_stock_picking__created_inspections
+#: model:ir.model.fields,field_description:quality_control_stock.field_stock_production_lot__created_inspections
+msgid "Created inspections"
+msgstr "已建立的質檢單"
+
+#. module: quality_control_stock
+#: model:ir.model.fields,field_description:quality_control_stock.field_stock_picking__done_inspections
+#: model:ir.model.fields,field_description:quality_control_stock.field_stock_production_lot__done_inspections
+msgid "Done inspections"
+msgstr "完成質檢"
+
+#. module: quality_control_stock
+#: model:ir.model.fields,field_description:quality_control_stock.field_stock_picking__qc_inspections_ids
+#: model:ir.model.fields,field_description:quality_control_stock.field_stock_production_lot__qc_inspections_ids
+msgid "Inspections"
+msgstr "質檢單"
+
+#. module: quality_control_stock
+#: model:ir.model.fields,field_description:quality_control_stock.field_stock_picking__passed_inspections
+#: model:ir.model.fields,field_description:quality_control_stock.field_stock_production_lot__passed_inspections
+msgid "Inspections OK"
+msgstr "質檢通過"
+
+#. module: quality_control_stock
+#: model:ir.model.fields,field_description:quality_control_stock.field_stock_picking__failed_inspections
+#: model:ir.model.fields,field_description:quality_control_stock.field_stock_production_lot__failed_inspections
+msgid "Inspections failed"
+msgstr "質檢不通過"
+
+#. module: quality_control_stock
+#: model:ir.model.fields,help:quality_control_stock.field_stock_production_lot__qc_inspections_ids
+msgid "Inspections related to this lot."
+msgstr "與這個批次相關的質檢。"
+
+#. module: quality_control_stock
+#: model:ir.model.fields,help:quality_control_stock.field_stock_picking__qc_inspections_ids
+msgid "Inspections related to this picking."
+msgstr "與此分揀有關的質檢。"
+
+#. module: quality_control_stock
+#: model:ir.model.fields,field_description:quality_control_stock.field_qc_inspection__lot_id
+#: model:ir.model.fields,field_description:quality_control_stock.field_qc_inspection_line__lot_id
+#: model_terms:ir.ui.view,arch_db:quality_control_stock.qc_inspection_line_search_stock_view
+#: model_terms:ir.ui.view,arch_db:quality_control_stock.qc_inspection_search_view_picking
+msgid "Lot"
+msgstr "批次"
+
+#. module: quality_control_stock
+#: model:ir.model,name:quality_control_stock.model_stock_production_lot
+msgid "Lot/Serial"
+msgstr "批次/序列號"
+
+#. module: quality_control_stock
+#: model:ir.model.fields,field_description:quality_control_stock.field_qc_inspection__move_id
+msgid "Move"
+msgstr "庫存移動"
+
+#. module: quality_control_stock
+#: model:ir.model.fields,field_description:quality_control_stock.field_qc_inspection__picking_id
+#: model:ir.model.fields,field_description:quality_control_stock.field_qc_inspection_line__picking_id
+#: model_terms:ir.ui.view,arch_db:quality_control_stock.qc_inspection_line_search_stock_view
+#: model_terms:ir.ui.view,arch_db:quality_control_stock.qc_inspection_search_view_picking
+msgid "Picking"
+msgstr "分揀"
+
+#. module: quality_control_stock
+#: model:ir.model,name:quality_control_stock.model_stock_picking_type
+#: model:ir.model.fields,field_description:quality_control_stock.field_qc_trigger__picking_type_id
+msgid "Picking Type"
+msgstr "揀貨類型"
+
+#. module: quality_control_stock
+#: model:ir.model,name:quality_control_stock.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr "產品移動(移庫明細)"
+
+#. module: quality_control_stock
+#: model:ir.model,name:quality_control_stock.model_qc_inspection
+msgid "Quality control inspection"
+msgstr "質檢單"
+
+#. module: quality_control_stock
+#: model:ir.model,name:quality_control_stock.model_qc_inspection_line
+msgid "Quality control inspection line"
+msgstr "質量單明細"
+
+#. module: quality_control_stock
+#: model:ir.model,name:quality_control_stock.model_qc_trigger
+msgid "Quality control trigger"
+msgstr "質量控制跟蹤"
+
+#. module: quality_control_stock
+#: model:ir.actions.act_window,name:quality_control_stock.action_qc_inspection_per_lot_done
+msgid "Quality inspection from lot done"
+msgstr "批次質檢"
+
+#. module: quality_control_stock
+#: model:ir.actions.act_window,name:quality_control_stock.action_qc_inspection_per_lot_passed
+msgid "Quality inspection from lot passed"
+msgstr "批次質檢通過"
+
+#. module: quality_control_stock
+#: model:ir.actions.act_window,name:quality_control_stock.action_qc_inspection_per_picking_done
+msgid "Quality inspection from picking done"
+msgstr "完成庫存質檢"
+
+#. module: quality_control_stock
+#: model:ir.actions.act_window,name:quality_control_stock.action_qc_inspection_per_picking_passed
+msgid "Quality inspection from picking passed"
+msgstr "庫存質檢通過"
+
+#. module: quality_control_stock
+#: model:ir.actions.act_window,name:quality_control_stock.action_qc_inspection_per_lot
+msgid "Quality inspections from lot"
+msgstr "批次質檢"
+
+#. module: quality_control_stock
+#: model:ir.actions.act_window,name:quality_control_stock.action_qc_inspection_per_lot_failed
+msgid "Quality inspections from lot failed"
+msgstr "批次質量檢查不通過"
+
+#. module: quality_control_stock
+#: model:ir.actions.act_window,name:quality_control_stock.action_qc_inspection_per_picking
+msgid "Quality inspections from picking"
+msgstr "庫存質檢"
+
+#. module: quality_control_stock
+#: model:ir.actions.act_window,name:quality_control_stock.action_qc_inspection_per_picking_failed
+msgid "Quality inspections from picking failed"
+msgstr "庫存質檢失敗"
+
+#. module: quality_control_stock
+#: model:ir.model,name:quality_control_stock.model_stock_move
+msgid "Stock Move"
+msgstr "庫存移動"
+
+#. module: quality_control_stock
+#: model:ir.model,name:quality_control_stock.model_stock_picking
+msgid "Transfer"
+msgstr "調撥"
+
+#. module: quality_control_stock
+#: model_terms:ir.ui.view,arch_db:quality_control_stock.stock_lot_qc_view
+#: model_terms:ir.ui.view,arch_db:quality_control_stock.stock_picking_qc_view
+msgid "inspections"
+msgstr "質檢單"
+
+#. module: quality_control_stock
+#: model_terms:ir.ui.view,arch_db:quality_control_stock.stock_picking_qc_view
+#, fuzzy
+msgid "建立質檢單"
+msgstr "建立質檢單"
+
+#. module: quality_control_stock
+#: model:ir.model.fields,field_description:quality_control_stock.field_stock_move__qualified_amount
+#: model:ir.model.fields,field_description:quality_control_stock.field_stock_move_line__qualified_amount
+#, fuzzy
+msgid "合格數量"
+msgstr "合格數量"
+
+#. module: quality_control_stock
+#: model:ir.model.fields,field_description:quality_control_stock.field_qc_inspection__partner_id
+#, fuzzy
+msgid "客戶/供應商"
+msgstr "客戶/供應商"
+
+#. module: quality_control_stock
+#: code:addons/quality_control_stock/models/stock_picking.py:0
+#, fuzzy, python-format
+msgid "總數量大於合格數量"
+msgstr "總數量大於合格數量"
+
+#. module: quality_control_stock
+#: model:ir.model.fields,field_description:quality_control_stock.field_stock_picking_type__is_qc
+#, fuzzy
+msgid "質檢"
+msgstr "質檢"
+
+#. module: quality_control_stock
+#: model:ir.model.fields,field_description:quality_control_stock.field_stock_move__qc_line_ids
+#, fuzzy
+msgid "質檢單"
+msgstr "質檢單"

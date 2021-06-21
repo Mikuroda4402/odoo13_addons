@@ -118,8 +118,9 @@
             <field name="view_id" ref="sale_require_view_tree" />
         </record>
 
-        <menuitem id="sale_require" name="聯絡工具" sequence="100" groups="sale_require_group_user"/>
-        <menuitem id="sale_require_view_menu" name="業務需求單" sequence="1"/>
+        <menuitem id="sale_require_root" name="聯絡工具" sequence="100" groups="sale_require_group_user" web_icon="sale_require,static/description/icon.png"/>
+        <menuitem id="sale_require_view_menu" parent="sale_require_root" action="sale_require_view_action" name="業務需求單" sequence="1" groups="sale_require_group_user"/>
+
         <!--<menuitem id="sale_require_line_category_view_menu" name="需求明細類別" parent="sale_require" action="sale_require_line_category_view_action" sequence="3"/>-->
         <!--<menuitem id="require_category_view_menu" name="需求類別" parent="sale_require" action="require_category_view_action" sequence="2"/>-->
         <!--<menuitem id="sale_require_spec_view_menu" name="需求索取" parent="sale_require" action="sale_require_spec_view_action" sequence="4"/>-->

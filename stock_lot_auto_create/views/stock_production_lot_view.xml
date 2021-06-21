@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="view_production_lot_second_tree" model="ir.ui.view">
+            <field name="name">stock.production.lot.second.tree</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="stock.view_production_lot_tree"/>
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <field name="second_unit_qty"/>
+                    <field name="second_unit"/>
+                    <field name="description"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_production_lot_second_form" model="ir.ui.view">
+            <field name="name">stock.production.lot.second.form</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="stock.view_production_lot_form"/>
+            <field name="arch" type="xml">
+                <group name="main_group" position="inside">
+                    <group>
+                        <label for="second_unit_qty"/>
+                            <div class="o_row">
+                                <field name="second_unit_qty"/>
+                                <field name="second_unit" readonly="1" groups="uom.group_uom"/>
+                            </div>
+                        <field name="second_ratio"/>
+                        <field name="description"/>
+                    </group>
+                </group>
+            </field>
+        </record>
+    </data>
+</odoo>
+
+

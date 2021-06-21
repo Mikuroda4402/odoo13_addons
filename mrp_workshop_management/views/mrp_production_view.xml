@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="mrp_production_workorder">
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="工單">
+                    <button name="set_next_wo_id"
+                            string="工序重排" type="object" icon="fa-thumbs-o-up"/>
+                    <field name="workorder_ids" context="{'default_production_id':id}">
+                        <tree editable="bottom" decoration-success="date_planned_start&gt;=current_date and state == 'ready'" decoration-muted="state in ('done','cancel')" decoration-danger="date_planned_start&lt;current_date and state in ('ready')">
+                            <field name="sequence" widget="handle"/>
+                            <field name="name" readonly="1"/>
+                            <field name="next_work_order_id"
+                                   domain="['&amp;', ('production_id', '=', production_id), ('state', 'not in', ('done','cancel'))]"
+                                   attrs="{'readonly': [('state', 'in', ('cancel', 'done'))]}"/>
+                            <field name="operation_id"
+                                   domain="[('routing_id', '=', routing_id)]"
+                                   attrs="{'readonly': [('state', 'in', ('cancel', 'done'))]}"/>
+                            <field name="workcenter_id" attrs="{'readonly': [('state', 'in', ('cancel', 'done'))]}"/>
+                            <field name="date_planned_start" attrs="{'readonly': [('state', 'in', ('cancel', 'done'))]}"/>
+                            <field name="date_planned_finished" attrs="{'readonly': [('state', 'in', ('cancel', 'done'))]}"/>
+                            <field name="production_id" invisible="1"/>
+                            <field name="routing_id" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                            <field name="state" readonly="1"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

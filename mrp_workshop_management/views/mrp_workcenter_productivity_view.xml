@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="mrp_oee_fw_tree_view" model="ir.ui.view">
+            <field name="name">	mrp.workcenter.productivity.fw.tree</field>
+            <field name="model">mrp.workcenter.productivity</field>
+            <field name="inherit_id" ref="mrp.oee_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="workcenter_id" position="after">
+                    <field name="work_qty"/>
+                     <field name="unqa_qty"/>
+                    <field name="scrap_qty"/>
+                    <field name="finished_qty"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

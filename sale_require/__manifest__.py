@@ -10,7 +10,7 @@
         """
         Sale Require
         """,
-    'depends': ['base'],
+    'depends': ['base', 'contacts'],
     'auto_install': False,
     'data': [
         'security/sale_require_groups.xml',
