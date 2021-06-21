@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="mrp_workshop_trace_form">
+        <field name="name">製造單查詢</field>
+        <field name="model">mrp.workshop.trace</field>
+        <field name="arch" type="xml">
+            <form string="追蹤製造訂單" create="false">
+                <sheet>
+                    <style>
+                        .o_cp_controller {display: none}
+                    </style>
+                    <group>
+                        <field name="mrp_no"/>
+                        <field name="mrp_exist" invisible="1"/>
+                    </group>
+                    <newline/>
+                    <group attrs="{'invisible': [('mrp_exist', '=', True)]}">
+                        <h2 class="bg-warning p-2 rounded">
+                            <span class="text-danger">請輸入製造訂單單號</span> 或 <span class="text-danger">找不到製造訂單</span>
+                        </h2>
+                    </group>
+                    <newline/>
+                    <field name="workorder_ids" readonly="1" attrs="{'invisible': [('mrp_exist', '=', False)]}"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_mrp_workshop_trace">
+        <field name="name">追蹤製造訂單</field>
+        <field name="res_model">mrp.workshop.trace</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <menuitem id="mrp_workshop_trace_root"
+        name="追蹤製造訂單"
+        sequence="100"
+        action="action_mrp_workshop_trace"
+        groups="mrp.group_mrp_manager"
+        />
+
+</odoo>
