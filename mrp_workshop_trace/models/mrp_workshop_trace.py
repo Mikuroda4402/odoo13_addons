@@ -14,11 +14,11 @@ class MrpWorkshopTrace(models.TransientModel):
 
     @api.onchange('mrp_no')
     def search_mrp(self):
-        no = self.mrp_no.strip() if self.mrp_no else ''
+        name = self.mrp_no.strip() if self.mrp_no else ''
         production_id = 0
 
-        if no:
-            production = self.env['mrp.production'].search([('name', 'like', f'%{no}%')], limit=1, order='name')
+        if name:
+            production = self.env['mrp.production'].search([('name', 'like', f'%{name}%')], limit=1, order='name')
             production_id = production.id if any(production) else 0
 
         self.workorder_ids = self.env['mrp.workorder'].search([('production_id', '=', production_id)], order='id')

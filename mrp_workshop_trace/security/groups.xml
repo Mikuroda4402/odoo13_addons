@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+        <record id="category_workshop_trace" model="ir.module.category">
+            <field name="name">製造訂單追蹤權限</field>
+            <field name="description">製造訂單追蹤權限</field>
+            <field name="sequence">99</field>
+        </record>
+
+        <record id="group_workshop_trace_employee" model="res.groups">
+            <field name="name">員工</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="category_workshop_trace" />
+        </record>
+
+        <record id="group_workshop_trace_manager" model="res.groups">
+            <field name="name">管理員</field>
+            <field name="implied_ids" eval="[(4, ref('mrp_workshop_trace.group_workshop_trace_employee'))]" />
+            <field name="category_id" ref="category_workshop_trace" />
+        </record>
+    </data>
+</odoo>

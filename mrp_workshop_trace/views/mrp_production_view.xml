@@ -7,9 +7,21 @@
             <form string="追蹤製造訂單" create="false">
                 <sheet>
                     <style>
-                        .o_cp_controller {display: none}
+                        .o_cp_controller {
+                            display: none
+                        }
+
+                        .o_form_view .o_form_sheet_bg > .o_form_sheet {
+                            max-width: unset;
+                        }
+
+                        @media (min-width: 768px) {
+                            .o_form_view .o_form_sheet_bg > .o_form_sheet {
+                                margin: 12px;
+                            }
+                        }
                     </style>
-                    <group>
+                    <group col="3">
                         <field name="mrp_no"/>
                         <field name="mrp_exist" invisible="1"/>
                     </group>
@@ -22,6 +34,20 @@
                     <newline/>
                     <field name="workorder_ids" readonly="1" attrs="{'invisible': [('mrp_exist', '=', False)]}"/>
                 </sheet>
+                <script>
+                    (function defer() {
+                        if (window.jQuery) {
+                            let _input = $('input[type="text"]');
+                            _input.on('keydown', function(e) {
+                                if(e.keyCode === 13) {
+                                    _input.trigger('change');
+                                }
+                            });
+                        } else {
+                            setTimeout(defer, 50);
+                        }
+                    })();
+                </script>
             </form>
         </field>
     </record>

@@ -10,6 +10,7 @@
         'mrp', 'stock_move_operation'
     ],
     "data": [
+        'security/groups.xml',
         'views/mrp_production_view.xml',
     ],
     'installable': True
