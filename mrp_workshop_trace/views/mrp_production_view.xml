@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <record model="ir.ui.view" id="mrp_workshop_trace_form">
-        <field name="name">製造單查詢</field>
+        <field name="name">製造工單查詢</field>
         <field name="model">mrp.workshop.trace</field>
         <field name="arch" type="xml">
-            <form string="追蹤製造訂單" create="false">
+            <form string="追蹤製造工單" create="false">
                 <sheet>
                     <style>
                         .o_cp_controller {
@@ -23,23 +23,23 @@
                     </style>
                     <group col="3">
                         <field name="mrp_no"/>
-                        <field name="mrp_exist" invisible="1"/>
+                        <field name="workerorder_exist" invisible="1"/>
                     </group>
                     <newline/>
-                    <group attrs="{'invisible': [('mrp_exist', '=', True)]}">
+                    <group attrs="{'invisible': [('workerorder_exist', '=', True)]}">
                         <h2 class="bg-warning p-2 rounded">
-                            <span class="text-danger">請輸入製造訂單單號</span> 或 <span class="text-danger">找不到製造訂單</span>
+                            <span class="text-danger">請輸入製造訂單/工單單號</span> 或 <span class="text-danger">找不到製造訂單</span>
                         </h2>
                     </group>
                     <newline/>
-                    <field name="workorder_ids" readonly="1" attrs="{'invisible': [('mrp_exist', '=', False)]}"/>
+                    <field name="workorder_ids" readonly="1" attrs="{'invisible': [('workerorder_exist', '=', False)]}"/>
                 </sheet>
                 <script>
                     (function defer() {
                         if (window.jQuery) {
                             let _input = $('input[type="text"]');
                             _input.on('keydown', function(e) {
-                                if(e.keyCode === 13) {
+                                if(e.key === 'Enter') {
                                     _input.trigger('change');
                                 }
                             });
@@ -53,7 +53,7 @@
     </record>
 
     <record model="ir.actions.act_window" id="action_mrp_workshop_trace">
-        <field name="name">追蹤製造訂單</field>
+        <field name="name">追蹤製造工單</field>
         <field name="res_model">mrp.workshop.trace</field>
         <field name="view_mode">form</field>
     </record>
