@@ -32,7 +32,29 @@
                         </h2>
                     </group>
                     <newline/>
-                    <field name="workorder_ids" readonly="1" attrs="{'invisible': [('workerorder_exist', '=', False)]}"/>
+                    <!-- TODO 這裡的看板打開會是編輯狀態，但清單會是檢視，需跟jason討論是否改用看板來顯示-->
+                    <group>
+                        <field name="workorder_ids" nolabel="1"
+                               attrs="{'invisible': [('workerorder_exist', '=', False)]}">
+                            <tree editable="top" create="0" delete="0">
+                                <field name="name"/>
+                                <field name="date_planned_start"/>
+                                <field name="operation_id"/>
+                                <field name="workcenter_id"/>
+                                <field name="production_id"/>
+                                <field name="product_id"/>
+                                <field name="qty_production"/>
+                                <field name="product_uom_id"/>
+                                <field name="state"/>
+                                <field name="remark" groups="mrp_workshop_trace.group_workshop_trace_manager"/>
+                                <field name="remark" readonly="1" groups="mrp_workshop_trace.group_workshop_trace_employee"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group>
+                        <field name="workorder_ids2" nolabel="1" mode="kanban"
+                               attrs="{'invisible': [('workerorder_exist', '=', False)]}"/>
+                    </group>
                 </sheet>
                 <script>
                     (function defer() {
