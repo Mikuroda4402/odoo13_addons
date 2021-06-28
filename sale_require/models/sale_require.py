@@ -21,7 +21,7 @@ class SaleRequire(models.Model):
         ('Y', 'Y'),
         ('N', 'N'), ], string='成交與否')
     create_date = fields.Datetime(string='Creation Date', readonly=True, index=True,
-                                  help="Date on which sales order is created.")
+                                  help=_("Date on which sales order is created."))
     publish_user_id = fields.Many2one('res.users', string='發文者')
     # create_user_id = fields.Many2one(
     #     'res.users', string='建立者', index=True, tracking=2, default=lambda self: self.env.user,

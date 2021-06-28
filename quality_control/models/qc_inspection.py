@@ -11,7 +11,7 @@ from odoo.tools import formatLang
 
 class QcInspection(models.Model):
     _name = "qc.inspection"
-    _description = "Quality control inspection"
+    _description = _("Quality control inspection")
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
     @api.depends("inspection_lines", "inspection_lines.success")
@@ -35,7 +35,7 @@ class QcInspection(models.Model):
                 i.product_id = False
 
     name = fields.Char(
-        string="Inspection number",
+        string=_("Inspection number"),
         required=True,
         default="/",
         readonly=True,
@@ -43,7 +43,7 @@ class QcInspection(models.Model):
         copy=False,
     )
     date = fields.Datetime(
-        string="Date",
+        string=_("Date"),
         required=True,
         readonly=True,
         copy=False,
@@ -51,30 +51,31 @@ class QcInspection(models.Model):
         states={"draft": [("readonly", False)]},
     )
     object_id = fields.Reference(
-        string="Reference",
+        string=_("Reference"),
         selection="object_selection_values",
         readonly=True,
         states={"draft": [("readonly", False)]},
         ondelete="set null",
     )
     product_id = fields.Many2one(
+        string=_("product"),
         comodel_name="product.product",
         compute="_compute_product_id",
         store=True,
-        help="Product associated with the inspection",
+        help=_("Product associated with the inspection"),
     )
-    qty = fields.Float(string="Quantity", default=1.0)
-    qualified_qty = fields.Float(string="合格數量", digits='Product Unit of Measure', copy=False)
-    scrap_qty = fields.Float('報廢數量', digits='Product Unit of Measure', copy=False)
-    qualification_rate = fields.Float(string="合格率", digits='Product Unit of Measure', copy=False)
+    qty = fields.Float(string=_("Quantity"), default=1.0)
+    qualified_qty = fields.Float(string=_("Qualified quantity"), digits='Product Unit of Measure', copy=False) # 合格數量
+    scrap_qty = fields.Float(string=_('Scrap quantity'), digits='Product Unit of Measure', copy=False) # 報廢數量
+    qualification_rate = fields.Float(string=_("Qualification rate"), digits='Product Unit of Measure', copy=False) # 合格率
     qty_cr = fields.Float(string="讓步接收數量", digits='Product Unit of Measure', copy=False)
     receiving_qty = fields.Float(string="可接收數量", digits='Product Unit of Measure', copy=False)
-    disposal_type = fields.Selection([('receive', '接收'),
-                                      ('scrap', '報廢'),
-                                      ('rejected', '退回'),
-                                      ('concession', '讓步接收')],
-                                     string='處理類型', readonly=True, copy=False,
-                                     states={'ready': [('readonly', False)]})
+    disposal_type = fields.Selection([('receive', _('receive')), # 接收
+                                      ('scrap', _('scrap')), # 報廢
+                                      ('rejected', _('rejected')), # 退回
+                                      ('concession', _('concession'))], # 讓步接收
+                                     string=_('Disposal type'), readonly=True, copy=False,
+                                     states={'ready': [('readonly', False)]}) # 處理類型
     test_type = fields.Selection([('sampling', '抽樣'),
                                   ('full-inspection', '全檢')],
                                  string='質檢類型', readonly=True, copy=False,
@@ -84,51 +85,51 @@ class QcInspection(models.Model):
     inspection_lines = fields.One2many(
         comodel_name="qc.inspection.line",
         inverse_name="inspection_id",
-        string="Inspection lines",
+        string=_("Inspection lines"), # 檢測清單
         readonly=True,
         states={"ready": [("readonly", False)]},
     )
-    internal_notes = fields.Text(string="Internal notes")
+    internal_notes = fields.Text(string=_("Internal notes")) # 內部注意事項
     external_notes = fields.Text(
-        string="External notes",
+        string="External notes", # 外部注意事項
         states={"success": [("readonly", True)], "failed": [("readonly", True)]},
     )
     state = fields.Selection(
         [
-            ("draft", "Draft"),
-            ("ready", "Ready"),
-            ("waiting", "Waiting supervisor approval"),
-            ("success", "Quality success"),
-            ("failed", "Quality failed"),
-            ("canceled", "Canceled"),
+            ("draft", _("Draft")),
+            ("ready", _("Ready")),
+            ("waiting", _("Waiting supervisor approval")),
+            ("success", _("Quality success")),
+            ("failed", _("Quality failed")),
+            ("canceled", _("Canceled")),
         ],
-        string="State",
+        string=_("State"),
         readonly=True,
         default="draft",
         track_visibility="onchange",
     )
     success = fields.Boolean(
         compute="_compute_success",
-        string="Success",
-        help="This field will be marked if all tests have succeeded.",
+        string=_("Success"),
+        help=_("This field will be marked if all tests have succeeded."),
         store=True,
     )
     auto_generated = fields.Boolean(
-        string="Auto-generated",
+        string="Auto-generated", # 自動產生
         readonly=True,
         copy=False,
-        help="If an inspection is auto-generated, it can be canceled but not removed.",
+        help=_("If an inspection is auto-generated, it can be canceled but not removed."),
     )
     company_id = fields.Many2one(
         comodel_name="res.company",
-        string="Company",
+        string=_("Company"),
         readonly=True,
         states={"draft": [("readonly", False)]},
         default=lambda self: self.env.company,
     )
     user = fields.Many2one(
         comodel_name="res.users",
-        string="Responsible",
+        string="負責人(Responsible)",
         track_visibility="always",
         default=lambda self: self.env.user,
     )
@@ -314,65 +315,66 @@ class QcInspectionLine(models.Model):
                     l.valid_values += " %s" % l.test_uom_id.name
 
     inspection_id = fields.Many2one(
-        comodel_name="qc.inspection", string="Inspection", ondelete="cascade"
+        comodel_name="qc.inspection", string="質檢單號(Inspection)", ondelete="cascade"
     )
-    name = fields.Char(string="Question", readonly=True)
+    name = fields.Char(string="檢測項目(Question)", readonly=True)
     product_id = fields.Many2one(
         comodel_name="product.product", related="inspection_id.product_id", store=True,
     )
     test_line = fields.Many2one(
-        comodel_name="qc.test.question", string="Test question", readonly=True
+        comodel_name="qc.test.question", string="測試檢查項目", readonly=True
     )
     possible_ql_values = fields.Many2many(
-        comodel_name="qc.test.question.value", string="Answers"
+        comodel_name="qc.test.question.value", string="測試結果(Answers)"
     )
     quantitative_value = fields.Float(
-        string="Quantitative value",
+        string="驗證數量(Quantitative value)",
         digits="Quality Control",
-        help="Value of the result for a quantitative question.",
+        help=_("Value of the result for a quantitative question."),
     )
     qualitative_value = fields.Many2one(
         comodel_name="qc.test.question.value",
-        string="Qualitative value",
-        help="Value of the result for a qualitative question.",
+        string="驗證結果(Qualitative value)",
+        help=_("Value of the result for a qualitative question."),
         domain="[('id', 'in', possible_ql_values)]",
     )
-    notes = fields.Text(string="Notes")
+    notes = fields.Text(string="注意事項(Notes)")
     min_value = fields.Float(
-        string="Min",
+        string="驗證最小數量(Min)",
         digits="Quality Control",
         readonly=True,
-        help="Minimum valid value for a quantitative question.",
+        help=_("Minimum valid value for a quantitative question."),
     )
     max_value = fields.Float(
-        string="Max",
+        string=_("Max"), # 驗證最小數量
         digits="Quality Control",
         readonly=True,
-        help="Maximum valid value for a quantitative question.",
+        help=_("Maximum valid value for a quantitative question.",)
     )
     test_uom_id = fields.Many2one(
         comodel_name="uom.uom",
-        string="Test UoM",
+        string=_("Test Uom"), # 測試數量單位
         readonly=True,
-        help="UoM for minimum and maximum values for a quantitative " "question.",
+        help=_("UoM for minimum and maximum values for a quantitative question."),
     )
     test_uom_category = fields.Many2one(
-        comodel_name="uom.category", related="test_uom_id.category_id", store=True
+        comodel_name="uom.category", related="test_uom_id.category_id", store=True,
     )
     uom_id = fields.Many2one(
         comodel_name="uom.uom",
-        string="UoM",
+        string="單位(UoM)",
         domain="[('category_id', '=', test_uom_category)]",
-        help="UoM of the inspection value for a quantitative question.",
+        help=_("UoM of the inspection value for a quantitative question."),
     )
     question_type = fields.Selection(
-        [("qualitative", "Qualitative"), ("quantitative", "Quantitative")],
-        string="Question type",
+        [("qualitative", _("Qualitative")), # 定性 
+         ("quantitative", _("Quantitative"))], # 定量
+        string=_("Question type"), # 驗證類型
         readonly=True,
     )
     valid_values = fields.Char(
-        string="Valid values", store=True, compute="_compute_valid_values"
+        string=_("Valid values"), store=True, compute="_compute_valid_values" # 有效值
     )
     success = fields.Boolean(
-        compute="_compute_quality_test_check", string="Success?", store=True
+        compute="_compute_quality_test_check", string=_("Success?"), store=True # 通過?
     )

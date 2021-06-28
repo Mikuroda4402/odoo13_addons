@@ -17,7 +17,7 @@ class StockPicking(models.Model):
         inverse_name="picking_id",
         copy=False,
         string="Inspections",
-        help="Inspections related to this picking.",
+        help=_("Inspections related to this picking."),
     )
     created_inspections = fields.Integer(
         compute="_compute_count_inspections", string="Created inspections"
