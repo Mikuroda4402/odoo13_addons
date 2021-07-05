@@ -5,6 +5,11 @@
             <field name="name">關於我的聯繫單</field>
             <field name="res_model">work.contact</field>
             <field name="view_mode">tree,form</field>
+            <field name="view_ids"
+                       eval="[(5, 0, 0),
+                       (0, 0, {'view_mode': 'tree', 'view_id': ref('omniform.work_contact_tree')}),
+                       (0, 0, {'view_mode': 'form', 'view_id': ref('omniform.work_contact_form')}),
+                       ]"/>
             <field name="domain">[('work_contact_id', '=', False),
                 '|', '|', ('employee_id.user_id.id', '=', uid), '&amp;', ('manager_id', '=', uid), ('state', '=', '3'),
                 '&amp;', ('recipient_ids.user_id.id', '=', uid), ('state', '=', '3')]</field>
@@ -14,12 +19,22 @@
             <field name="name">回覆聯繫單</field>
             <field name="res_model">work.contact</field>
             <field name="view_mode">tree,form</field>
+            <field name="view_ids"
+                       eval="[(5, 0, 0),
+                       (0, 0, {'view_mode': 'tree', 'view_id': ref('omniform.sub_work_contact_tree')}),
+                       (0, 0, {'view_mode': 'form', 'view_id': ref('omniform.sub_work_contact_form')}),
+                       ]"/>
         </record>
 
         <record model="ir.actions.act_window" id="pending_approval_contact_act">
             <field name="name">待批准聯繫單</field>
             <field name="res_model">work.contact</field>
             <field name="view_mode">tree,form</field>
+            <field name="view_ids"
+                       eval="[(5, 0, 0),
+                       (0, 0, {'view_mode': 'tree', 'view_id': ref('omniform.work_contact_tree')}),
+                       (0, 0, {'view_mode': 'form', 'view_id': ref('omniform.work_contact_form')}),
+                       ]"/>
             <field name="context">{'search_default_state':1}</field>
             <field name="domain">[('work_contact_id', '=', False), ('state', '=', ['2', '3', '4']),
                 '|', ('employee_id.parent_id.user_id.id', '=', uid), ('employee_id.user_id.id', '=', uid)]</field>
@@ -29,6 +44,11 @@
             <field name="name">查詢回覆訊息</field>
             <field name="res_model">work.contact</field>
             <field name="view_mode">tree,form</field>
+            <field name="view_ids"
+                       eval="[(5, 0, 0),
+                       (0, 0, {'view_mode': 'tree', 'view_id': ref('omniform.sub_work_contact_tree')}),
+                       (0, 0, {'view_mode': 'form', 'view_id': ref('omniform.sub_work_contact_form')}),
+                       ]"/>
             <field name="context">{'search_default_group_state':1}</field>
             <field name="domain">[('state', '=', ['3', '4']),
                 '|', '|', ('employee_id.parent_id.user_id.id', '=', uid), ('employee_id.user_id.id', '=', uid), ('recipient_ids.user_id.id', '=', uid)]</field>
