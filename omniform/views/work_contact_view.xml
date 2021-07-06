@@ -37,9 +37,10 @@
                     </header>
                     <sheet>
                         <div class="oe_button_box" name="button_box">
-                            <button name="sub_work_contact" string="回復訊息"
+                            <button name="sub_work_contact"
                                     type="object" class="oe_stat_button" icon="fa-mail-reply"
                                     attrs="{'invisible': ['|', ('name', '=', False),('state', '!=', '3')]}">
+                                <field name="reply_count" widget="statinfo" string="回復訊息"/>
                             </button>
                         </div>
                         <div class="oe_title">
@@ -53,31 +54,32 @@
                             <field name="create_date" string="發文日期"/>
                             <field name="recipient_ids" widget="many2many_tags"
                                    options="{'no_create': True, 'no_create_edit':True, 'no_open':True}"
-                                   attrs="{'readonly': [('user_id','!=', 'current_user'), ('manager_id','!=', 'current_user')]}"/>
+                                   attrs="{'readonly': [('is_readonly','=', True)]}"/>
                             <field name="priority" widget='radio' options="{'horizontal': true}"/>
                             <field name="est_cmplt_date" attrs="{'required': [('work_contact_id','=', False)],
-                                                                 'readonly': [('user_id','!=', 'current_user'), ('manager_id','!=', 'current_user')]}"/>
+                                                                 'readonly': [('is_readonly','=', True)]}"/>
                             <field name="attachment_ids" widget="many2many_binary" class="oe_inline"
-                                   attrs="{'readonly': [('user_id','!=', 'current_user'), ('manager_id','!=', 'current_user')]}"/>
+                                   attrs="{'readonly': [('is_readonly','=', True)]}"/>
                         </group>
                         <group>
                             <field name="subject" attrs="{'required': [('work_contact_id','=', False)],
-                                                          'readonly': [('user_id','!=', 'current_user'), ('manager_id','!=', 'current_user')]}"/>
+                                                          'readonly': [('is_readonly','=', True)]}"/>
                         </group>
                         <notebook>
                             <page string="內容">
-                                <field name="content" attrs="{'readonly': [('user_id','!=', 'current_user'), ('manager_id','!=', 'current_user')]}"/>
+                                <field name="content" attrs="{'readonly': [('is_readonly','=', True)]}"/>
                             </page>
                             <page string="審核內容"
-                                  attrs="{'readonly': [('manager_id','!=', 'current_user'), ('state', 'in', ['3', '4', '5'])],
-                                          'invisible': [('user_id','!=', 'current_user'), ('manager_id','!=', 'current_user'), ('state', 'not in', ['2', '3', '5'])]
+                                  attrs="{'readonly': [('review_content_readonly','=', True), ('state', 'in', ['3', '4', '5'])],
+                                          'invisible': [('is_readonly','=', True), ('state', 'not in', ['2', '3', '5'])]
                                          }">
                                 <field name="review_content"/>
                             </page>
                         </notebook>
                         <field name="work_contact_id" invisible="1"/>
-                        <field name="current_user" invisible="1"/>
                         <field name="user_id" invisible="1"/>
+                        <field name="is_readonly" invisible="1"/>
+                        <field name="review_content_readonly" invisible="1"/>
                     </sheet>
                 </form>
             </field>

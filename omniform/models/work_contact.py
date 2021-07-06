@@ -5,35 +5,49 @@ from datetime import datetime, timedelta
 
 class WorkContact(models.Model):
     _name = 'work.contact'
-    _order = 'id desc, priority'
+    _order = 'priority, id desc'
     _description = '工作聯繫單'
     _rec_name = 'name'
 
-    @api.model
-    def _get_current_user(self):
-        for rec in self:
-            rec.current_user = self.env.user
-        self.update({'current_user': self.env.user.id})
+    def _get_status(self):
+        if self.manager_id.id != self.env.user.id and self.user_id.id != self.env.user.id:
+            self.is_readonly = True
+        else:
+            self.is_readonly = False
+
+    def review_content_status(self):
+        if self.manager_id.id != self.env.user.id:
+            self.review_content_readonly = True
+        else:
+            self.review_content_readonly = False
 
     @api.model
     def _default_employee_id(self):
         return self.env.user.employee_id
 
     name = fields.Char(string='單號')
-    current_user = fields.Many2one('res.users', compute=_get_current_user)
+    is_readonly = fields.Boolean(compute=_get_status)
     employee_id = fields.Many2one(comodel_name='hr.employee', string='填單人員', default=_default_employee_id, readonly=True)
     user_id = fields.Many2one('res.users', related='employee_id.user_id')
-    manager_id = fields.Many2one(comodel_name='res.users', related='employee_id.parent_id.user_id', store=True, readonly=True, string='上級主管')
+    manager_id = fields.Many2one(comodel_name='res.users', related='employee_id.parent_id.user_id', readonly=True, string='上級主管')
     recipient_ids = fields.Many2many('hr.employee', relation="work_contact_employee_rec_rel", string='收件者')
     est_cmplt_date = fields.Date(string='預計完成日')
     subject = fields.Char(string='主旨')
     priority = fields.Selection(selection=[('1', '特急'), ('2', '高'), ('3', '普通')], string='優先順序', default='3')
     state = fields.Selection(selection=[('1', '草稿'), ('2', '主管批准'), ('3', '進行中'), ('4', '已完成'), ('5', '退回')], string='狀態', default='1')
     content = fields.Html(string='內容', default='')
+    reply_content = fields.Html(string='回覆', default='')
+    review_content_readonly = fields.Boolean(compute=review_content_status)
     review_content = fields.Html(string='審核內容')
     attachment_ids = fields.Many2many('ir.attachment', string='附件')
-    work_contact_id = fields.Many2one('work.contact', string='聯繫主單')
+    work_contact_id = fields.Many2one('work.contact', string='聯繫主單', ondelete='cascade')
     line_ids = fields.One2many('work.contact', 'work_contact_id', string='聯繫子單')
+    reply_count = fields.Integer(compute='compute_reply_count')
+
+    @api.depends('line_ids')
+    def compute_reply_count(self):
+        self.reply_count = len(self.line_ids)
+        return True
 
     def close_contact(self):
         self.state = '4'
@@ -63,7 +77,7 @@ class WorkContact(models.Model):
 
     def sub_work_contact(self):
         action = self.env.ref('omniform.sub_work_contact_act').read()[0]
-        content = '\n' + '-' * 40 + '\n' + self.content if self.content else ''
+        content = '\n' + '-' * 40 + '\n' + self.reply_content if self.reply_content else self.content
         action['context'] = {
             'tree_view_ref': 'omniform.sub_work_contact_tree', 'form_view_ref': 'omniform.sub_work_contact_form',
             'search_view_ref': 'omniform.sub_work_contact_search', 'default_recipient_ids': [(6, 0, self.recipient_ids.ids)],
