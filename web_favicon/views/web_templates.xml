@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="web_layout" inherit_id="web.layout">
+       <xpath expr="//link[@rel='shortcut icon']" position="replace">
+          <link type="image/x-icon" rel="shortcut icon" href="x_icon or '/web_favicon/static/icon/favicon.ico'"/>
+       </xpath>
+    </template>
+</odoo>
