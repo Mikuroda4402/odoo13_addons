@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <field name="workcenter_id" position="after">
                     <field name="work_qty"/>
-                     <field name="unqa_qty"/>
+                    <field name="unqa_qty"/>
                     <field name="scrap_qty"/>
                     <field name="finished_qty"/>
                 </field>

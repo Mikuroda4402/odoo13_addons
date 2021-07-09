@@ -5,7 +5,7 @@
 # Copyright 2017 Simone Rubino - Agile Business Group
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import fields, models
+from odoo import fields, models, _
 
 
 def _filter_trigger_lines(trigger_lines):
@@ -33,9 +33,9 @@ class QcTriggerLine(models.AbstractModel):
     partners = fields.Many2many(
         comodel_name="res.partner",
         string="Partners",
-        help="If filled, the test will only be created when the action is done"
-        " for one of the specified partners. If empty, the test will always be"
-        " created.",
+        help=_("""If filled, the test will only be created when the action is done
+        for one of the specified partners. If empty, the test will always be
+        created."""),
         domain="[('parent_id', '=', False)]",
     )
 

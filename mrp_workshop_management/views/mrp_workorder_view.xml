@@ -23,6 +23,7 @@
                     <attribute name="attrs">{'invisible': ['|', ('state', '!=', 'progress'), ('qty_producing', '=' , 0)]}</attribute>
                 </xpath>
                 <xpath expr="//field[@name='time_ids']/tree/field[@name='duration']" position="after">
+                    <field name="iot_number" readonly="1"/>
                     <field name="work_qty"/>
                     <field name="unqa_qty"/>
                     <field name="scrap_qty"/>
@@ -48,6 +49,9 @@
                 <xpath expr="//form[1]" position="attributes">
                     <attribute name="delete">1</attribute>
                     <attribute name="create">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='is_produced']" position="after">
+                    <field name="remark" readonly="1" string="特別叮嚀"/>
                 </xpath>
             </field>
         </record>

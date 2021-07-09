@@ -2,7 +2,7 @@
 # Copyright 2018 Simone Rubino - Agile Business Group
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 from odoo.addons.quality_control.models.qc_trigger_line import \
     _filter_trigger_lines
 
@@ -18,7 +18,7 @@ class MrpProduction(models.Model):
 
     qc_inspections_ids = fields.One2many(
         comodel_name='qc.inspection', inverse_name='production_id', copy=False,
-        string='Inspections', help="Inspections related to this production.")
+        string='Inspections', help=_("Inspections related to this production."))
     created_inspections = fields.Integer(
         compute="_count_inspections", string="Created inspections")
 

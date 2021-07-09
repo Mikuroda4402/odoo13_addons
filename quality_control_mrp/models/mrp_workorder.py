@@ -26,7 +26,7 @@ class MrpWorkorder(models.Model):
 
     qc_inspections_ids = fields.One2many(
         comodel_name='qc.inspection', inverse_name='workorder_id', copy=False,
-        string='Inspections', help="Inspections related to this picking.")
+        string='Inspections', help=_("Inspections related to this picking."))
     created_inspections = fields.Integer(
         compute="_compute_count_inspections", string="質檢單")
     done_inspections = fields.Integer(

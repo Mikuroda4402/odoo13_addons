@@ -70,3 +70,5 @@ class MrpWorkorder(models.Model):
         if self.time_ids.filtered(lambda t: t.work_qty == 0):
             raise UserError('報工單未填入數量')
         return res
+
+    remark = fields.Text(string='備註')

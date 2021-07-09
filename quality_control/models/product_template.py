@@ -5,7 +5,7 @@
 # Copyright 2017 Simone Rubino - Agile Business Group
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import fields, models
+from odoo import fields, models, _
 
 
 class ProductTemplate(models.Model):
@@ -14,6 +14,6 @@ class ProductTemplate(models.Model):
     qc_triggers = fields.One2many(
         comodel_name="qc.trigger.product_template_line",
         inverse_name="product_template",
-        string="Quality control triggers",
+        string=_("Quality control triggers"),
     )
     is_qc = fields.Boolean('Need qc')

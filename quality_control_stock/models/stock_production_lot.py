@@ -2,7 +2,7 @@
 # Copyright 2018 Simone Rubino - Agile Business Group
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 
 
 class StockProductionLot(models.Model):
@@ -13,7 +13,7 @@ class StockProductionLot(models.Model):
         inverse_name="lot_id",
         copy=False,
         string="Inspections",
-        help="Inspections related to this lot.",
+        help=_("Inspections related to this lot."),
     )
     created_inspections = fields.Integer(
         compute="_compute_count_inspections", string="Created inspections"
