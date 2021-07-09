@@ -95,7 +95,7 @@
                         <page string="Questions">
                             <field name="inspection_lines" nolabel="1">
                                 <tree
-                                    string="Inspection lines"
+                                    string="檢查清單"
                                     editable="top"
                                     delete="false"
                                     create="false"
@@ -330,13 +330,13 @@
         </field>
     </record>
     <record model="ir.actions.act_window" id="action_qc_inspection_line">
-        <field name="name">Inspection lines</field>
+        <field name="name">檢查清單</field>
         <field name="res_model">qc.inspection.line</field>
         <field name="view_mode">tree</field>
         <field name="view_id" ref="qc_inspection_line_tree_view" />
     </record>
     <menuitem
-        name="Inspection lines"
+        name="檢查清單"
         parent="qc_inspection_menu_parent"
         id="qc_inspection_lines_menu"
         action="action_qc_inspection_line"

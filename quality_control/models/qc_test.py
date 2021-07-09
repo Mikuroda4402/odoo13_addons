@@ -24,28 +24,28 @@ class QcTest(models.Model):
         if self.type == "generic":
             self.object_id = False
 
-    active = fields.Boolean("Active", default=True)
-    name = fields.Char(string="Name", required=True, translate=True)
+    active = fields.Boolean("啟用", default=True)
+    name = fields.Char(string="檢測單號", required=True, translate=True)
     test_lines = fields.One2many(
         comodel_name="qc.test.question",
         inverse_name="test",
-        string="Questions",
+        string="檢測項目(Questions)",
         copy=True,
     )
     object_id = fields.Reference(
-        string="Reference object", selection="object_selection_values",
+        string="參照項目(Reference object)", selection="object_selection_values",
     )
-    fill_correct_values = fields.Boolean(string="Pre-fill with correct values")
+    fill_correct_values = fields.Boolean(string="預期結果(Pre-fill with correct values)")
     type = fields.Selection(
-        [("generic", "Generic"), ("related", "Related")],
+        [("generic", "通用(Generic)"), ("related", "相關(Related)")],
         string="Type",
         required=True,
         default="generic",
     )
-    category = fields.Many2one(comodel_name="qc.test.category", string="Category")
+    category = fields.Many2one(comodel_name="qc.test.category", string="類別(Category)")
     company_id = fields.Many2one(
         comodel_name="res.company",
-        string="Company",
+        string="公司別(Company)",
         default=lambda self: self.env.company,
     )
 
@@ -113,5 +113,5 @@ class QcTestQuestionValue(models.Model):
     name = fields.Char(string="Name", required=True, translate=True)
     ok = fields.Boolean(
         string="Correct answer?",
-        help="When this field is marked, the answer is considered correct.",
+        help=_("When this field is marked, the answer is considered correct."),
     )

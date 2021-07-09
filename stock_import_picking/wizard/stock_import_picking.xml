@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+        <record id="stock_import_picking_wizard_form" model="ir.ui.view">
+            <field name="name">stock_import_picking_wizard_form</field>
+            <field name="model">stock_import_picking.stock_import_picking</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <group style="width:30%">
+                                <field name="data"/>
+                                <!-- <field name="location_dest_id"/> -->
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button type="object" name="import_purchase" string="Import" class="oe_highlight"/>
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window id="stock_import_picking_wizard_form_action" name="Purchase order import wizard"
+                    res_model="stock_import_picking.stock_import_picking" view_mode="form" target="new" multi="False"/>
+
+        <menuitem id="menu_purchase_import" name="Import" parent="stock.stock_picking_type_menu"
+                  action="stock_import_picking.stock_import_picking_wizard_form_action" sequence="10"/>
+
+    </data>
+</openerp>

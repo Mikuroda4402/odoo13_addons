@@ -50,5 +50,5 @@ class QcTestTemplateCategory(models.Model):
     active = fields.Boolean(
         string="Active",
         default=True,
-        help="This field allows you to hide the category without removing it.",
+        help=_("This field allows you to hide the category without removing it."),
     )
