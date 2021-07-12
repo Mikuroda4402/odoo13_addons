@@ -83,4 +83,4 @@ class MrpProduction(models.Model):
             workorder._generate_wo_lines()
         return workorders
 
-
+    pi_number = fields.Char(string=_('Pi number'), required=True, default='')

@@ -25,9 +25,20 @@
                             <field name="routing_id" invisible="1"/>
                             <field name="company_id" invisible="1"/>
                             <field name="state" readonly="1"/>
+                            <field name="remark" style="width: 15%"/>
                         </tree>
                     </field>
                 </page>
+            </xpath>
+
+            <xpath expr="//group[1]/group[2]" position="inside">
+                <field name="pi_number"/>
+            </xpath>
+
+            <xpath expr="//sheet" position="inside">
+                <style>
+                    .o_form_sheet {max-width: 95% !important}
+                </style>
             </xpath>
         </field>
     </record>

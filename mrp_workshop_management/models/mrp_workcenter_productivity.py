@@ -23,7 +23,8 @@ class MrpWorkcenterProductivity(models.Model):
     def button_task_finish(self):
         return self.write({'confirm': True})
 
-    iot_number = fields.Char('批號', default='')
+    iot_number = fields.Char('IoT number', default='')
+    remark = fields.Text('Remark')
 
     @api.model
     def create(self, vals_list):
@@ -33,22 +34,22 @@ class MrpWorkcenterProductivity(models.Model):
         :param vals_list:
         :return:
         """
-        workcenter = self.env['mrp.workcenter'].browse(vals_list['workcenter_id'])
-        workcenter_code = workcenter.code
+        production = self.env['mrp.production'].browse(vals_list['production_id'])
+        production_code = production.pi_number
 
         ir_seq = self.env['ir.sequence']
-        iot_number = ir_seq.next_by_code(workcenter_code)
+        iot_number = ir_seq.next_by_code(production_code)
         if not iot_number:
             ir_seq.create({
-                'name': workcenter_code,
-                'code': workcenter_code,
+                'name': production_code,
+                'code': production_code,
                 'implementation': 'no_gap',
                 'active': True,
-                'prefix': f'{workcenter_code}%(y)s%(month)s%(day)s',
-                'padding': 3,
+                'prefix': f'{production_code}%(y)s%(month)s%(day)s',
+                'padding': 5,
                 'number_increment': 1,
             })
-            iot_number = ir_seq.next_by_code(workcenter_code)
+            iot_number = ir_seq.next_by_code(production_code)
 
         vals_list['iot_number'] = iot_number
         return super(MrpWorkcenterProductivity, self).create(vals_list)
