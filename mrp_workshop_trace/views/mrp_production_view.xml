@@ -1,90 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record model="ir.ui.view" id="mrp_workshop_trace_form">
-        <field name="name">製造工單查詢</field>
-        <field name="model">mrp.workshop.trace</field>
-        <field name="arch" type="xml">
-            <form string="追蹤製造工單" create="false">
-                <sheet>
-                    <style>
-                        .o_cp_controller {
-                            display: none
-                        }
-
-                        .o_form_view .o_form_sheet_bg > .o_form_sheet {
-                            max-width: unset;
-                        }
-
-                        @media (min-width: 768px) {
-                            .o_form_view .o_form_sheet_bg > .o_form_sheet {
-                                margin: 12px;
+    <data>
+        <record model="ir.ui.view" id="mrp_workshop_trace_form">
+            <field name="name">製造工單查詢</field>
+            <field name="model">mrp.workshop.trace</field>
+            <field name="arch" type="xml">
+                <form string="追蹤製造工單" create="false">
+                    <sheet>
+                        <style>
+                            .o_cp_controller {
+                                display: none
                             }
-                        }
-                    </style>
-                    <group col="3">
-                        <field name="mrp_no"/>
-                        <field name="workerorder_exist" invisible="1"/>
-                    </group>
-                    <newline/>
-                    <group attrs="{'invisible': [('workerorder_exist', '=', True)]}">
-                        <h2 class="bg-warning p-2 rounded">
-                            <span class="text-danger">請輸入製造訂單/工單單號</span> 或 <span class="text-danger">找不到製造訂單</span>
-                        </h2>
-                    </group>
-                    <newline/>
-                    <!-- TODO 這裡的看板打開會是編輯狀態，但清單會是檢視，需跟jason討論是否改用看板來顯示-->
-                    <group>
-                        <field name="workorder_ids" nolabel="1"
-                               attrs="{'invisible': [('workerorder_exist', '=', False)]}">
-                            <tree editable="top" create="0" delete="0">
-                                <field name="name"/>
-                                <field name="date_planned_start"/>
-                                <field name="operation_id"/>
-                                <field name="workcenter_id"/>
-                                <field name="production_id"/>
-                                <field name="product_id"/>
-                                <field name="qty_production"/>
-                                <field name="product_uom_id"/>
-                                <field name="state"/>
-                                <field name="remark" groups="mrp_workshop_trace.group_workshop_trace_manager"/>
-                                <field name="remark" readonly="1" groups="mrp_workshop_trace.group_workshop_trace_employee"/>
-                            </tree>
-                        </field>
-                    </group>
-                    <group>
-                        <field name="workorder_ids2" nolabel="1" mode="kanban"
-                               attrs="{'invisible': [('workerorder_exist', '=', False)]}"/>
-                    </group>
-                </sheet>
-                <script>
-                    (function defer() {
-                        if (window.jQuery) {
-                            let _input = $('input[type="text"]');
-                            _input.on('keydown', function(e) {
-                                if(e.key === 'Enter') {
-                                    _input.trigger('change');
+
+                            .o_form_view .o_form_sheet_bg > .o_form_sheet {
+                                max-width: unset;
+                            }
+
+                            @media (min-width: 768px) {
+                                .o_form_view .o_form_sheet_bg > .o_form_sheet {
+                                    margin: 12px;
                                 }
-                            });
-                        } else {
-                            setTimeout(defer, 50);
-                        }
-                    })();
-                </script>
-            </form>
-        </field>
-    </record>
+                            }
+                        </style>
+                        <group col="3">
+                            <field name="mrp_no"/>
+                            <field name="workerorder_exist" invisible="1"/>
+                        </group>
+                        <newline/>
+                        <group attrs="{'invisible': [('workerorder_exist', '=', True)]}">
+                            <h2 class="bg-warning p-2 rounded">
+                                <span class="text-danger">請輸入製造訂單/工單單號</span> 或 <span class="text-danger">找不到製造訂單</span>
+                            </h2>
+                        </group>
+                        <newline/>
+                        <group>
+                            <field name="workorder_ids" nolabel="1"
+                                   attrs="{'invisible': [('workerorder_exist', '=', False)]}">
+                                <tree editable="top" create="0" delete="0">
+                                    <field name="name"/>
+                                    <field name="date_planned_start"/>
+                                    <field name="operation_id"/>
+                                    <field name="workcenter_id"/>
+                                    <field name="production_id"/>
+                                    <field name="product_id"/>
+                                    <field name="qty_production"/>
+                                    <field name="product_uom_id"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group>
+                            <field name="workorder_ids2" nolabel="1" mode="kanban"
+                                   attrs="{'invisible': [('workerorder_exist', '=', False)]}"/>
+                        </group>
+                    </sheet>
+                    <script>
+                        (function defer() {
+                            if (window.jQuery) {
+                                let _input = $('input[type="text"]');
+                                _input.on('keydown', function(e) {
+                                    if(e.key === 'Enter') {
+                                        _input.trigger('change');
+                                    }
+                                });
+                            } else {
+                                setTimeout(defer, 50);
+                            }
+                        })();
+                    </script>
+                </form>
+            </field>
+        </record>
 
-    <record model="ir.actions.act_window" id="action_mrp_workshop_trace">
-        <field name="name">追蹤製造工單</field>
-        <field name="res_model">mrp.workshop.trace</field>
-        <field name="view_mode">form</field>
-    </record>
+        <record model="ir.actions.act_window" id="action_mrp_workshop_trace">
+            <field name="name">追蹤製造工單</field>
+            <field name="res_model">mrp.workshop.trace</field>
+            <field name="view_mode">form</field>
+        </record>
 
-    <menuitem id="mrp_workshop_trace_root"
-        name="追蹤製造訂單"
-        sequence="100"
-        action="action_mrp_workshop_trace"
-        groups="mrp.group_mrp_manager"
-        />
-
+        <menuitem id="mrp_workshop_trace_root"
+            name="追蹤製造訂單"
+            sequence="100"
+            action="action_mrp_workshop_trace"
+            groups="mrp.group_mrp_manager"
+            />
+    </data>
 </odoo>
