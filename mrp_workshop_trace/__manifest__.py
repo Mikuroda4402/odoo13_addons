@@ -11,6 +11,7 @@
     ],
     "data": [
         'security/groups.xml',
+        'security/ir.model.access.csv',
         'views/mrp_production_view.xml',
     ],
     'installable': True
